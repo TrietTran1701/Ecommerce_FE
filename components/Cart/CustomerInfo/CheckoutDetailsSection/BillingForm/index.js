@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { useRouter } from 'next/router'
-import axios from 'axios'
 import styles from './styles'
 import * as Yup from 'yup'
 import { Formik } from 'formik'
 import { useDispatch, useSelector } from 'react-redux'
 import { resetCheckout } from 'store/reducers/checkoutSlice'
+import { createOrder } from 'utils/api'
 
 const BillingForm = ({ cartList, totalCost, customerBillingDetail }) => {
   const router = useRouter()
@@ -35,79 +35,79 @@ const BillingForm = ({ cartList, totalCost, customerBillingDetail }) => {
     paymentMethod: Yup.string().required(),
   })
 
-  const createDeliveryOrder = async (
-    to_name,
-    to_phone,
-    to_address,
-    to_ward_name,
-    to_district_name,
-    to_province_name,
-    cartList,
-  ) => {
-    const postData = {
-      payment_type_id: 2,
-      note: '',
-      from_name: 'PetStore',
-      from_phone: '0909999999',
-      from_address: '',
-      from_ward_name: '',
-      from_district_name: 'Quận 10',
-      from_province_name: 'TP Hồ Chí Minh',
-      required_note: 'KHONGCHOXEMHANG',
-      return_name: 'Petstore',
-      return_phone: '0909999999',
-      return_address: '',
-      return_ward_name: '',
-      return_district_name: 'Quận 10',
-      return_province_name: 'TP Hồ Chí Minh',
-      client_order_code: '',
-      to_name: to_name,
-      to_phone: to_phone,
-      to_address: to_address,
-      to_ward_name: to_ward_name,
-      to_district_name: to_district_name,
-      to_province_name: to_province_name,
-      cod_amount: 200000,
-      content: '',
-      weight: 200,
-      length: null,
-      width: null,
-      height: null,
-      pick_station_id: 1444,
-      deliver_station_id: null,
-      insurance_value: 1000000,
-      service_id: 0,
-      service_type_id: 2,
-      coupon: null,
-      pick_shift: null,
-      pickup_time: 1665272576,
-      items: cartList.map((cart) => {
-        return {
-          name: cart.name,
-          code: '',
-          quantity: cart.quantity,
-          price: Math.round(cart.price * 24.867),
-          length: null,
-          width: null,
-          height: null,
-          category: {
-            level1: 'Đồ dùng cho thú cưng',
-          },
-        }
-      }),
-    }
-    const res = await axios
-      .post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create', postData, {
-        headers: {
-          'Content-Type': 'application/json',
-          ShopId: '120553',
-          Token: '5afa38c1-5c4b-11ed-b8cc-a20ef301dcd7',
-        },
-      })
-      .then((res) => res.data)
-      .catch((error) => console.log(error))
-    return res.data
-  }
+  // const createDeliveryOrder = async (
+  //   to_name,
+  //   to_phone,
+  //   to_address,
+  //   to_ward_name,
+  //   to_district_name,
+  //   to_province_name,
+  //   cartList,
+  // ) => {
+  //   const postData = {
+  //     payment_type_id: 2,
+  //     note: '',
+  //     from_name: 'PetStore',
+  //     from_phone: '0909999999',
+  //     from_address: '',
+  //     from_ward_name: '',
+  //     from_district_name: 'Quận 10',
+  //     from_province_name: 'TP Hồ Chí Minh',
+  //     required_note: 'KHONGCHOXEMHANG',
+  //     return_name: 'Petstore',
+  //     return_phone: '0909999999',
+  //     return_address: '',
+  //     return_ward_name: '',
+  //     return_district_name: 'Quận 10',
+  //     return_province_name: 'TP Hồ Chí Minh',
+  //     client_order_code: '',
+  //     to_name: to_name,
+  //     to_phone: to_phone,
+  //     to_address: to_address,
+  //     to_ward_name: to_ward_name,
+  //     to_district_name: to_district_name,
+  //     to_province_name: to_province_name,
+  //     cod_amount: 200000,
+  //     content: '',
+  //     weight: 200,
+  //     length: null,
+  //     width: null,
+  //     height: null,
+  //     pick_station_id: 1444,
+  //     deliver_station_id: null,
+  //     insurance_value: 1000000,
+  //     service_id: 0,
+  //     service_type_id: 2,
+  //     coupon: null,
+  //     pick_shift: null,
+  //     pickup_time: 1665272576,
+  //     items: cartList.map((cart) => {
+  //       return {
+  //         name: cart.name,
+  //         code: '',
+  //         quantity: cart.quantity,
+  //         price: Math.round(cart.price * 24.867),
+  //         length: null,
+  //         width: null,
+  //         height: null,
+  //         category: {
+  //           level1: 'Đồ dùng cho thú cưng',
+  //         },
+  //       }
+  //     }),
+  //   }
+  //   const res = await axios
+  //     .post('https://dev-online-gateway.ghn.vn/shiip/public-api/v2/shipping-order/create', postData, {
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         ShopId: '120553',
+  //         Token: '5afa38c1-5c4b-11ed-b8cc-a20ef301dcd7',
+  //       },
+  //     })
+  //     .then((res) => res.data)
+  //     .catch((error) => console.log(error))
+  //   return res.data
+  // }
 
   return (
     <div>
@@ -115,49 +115,64 @@ const BillingForm = ({ cartList, totalCost, customerBillingDetail }) => {
         validationSchema={BILLING_SCHEMA}
         initialValues={customerBillingDetail}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const order = {
+            userId: userSlice.id,
+            products: cartList,
+            totalCost: totalCost + 10,
+            deliver: {
+              location: values.address + ', District ' + values.district + ', Ward ' + values.ward,
+              fee: 10,
+            },
+            note: values.orderComment,
+          }
           try {
             // ** Create delivery order through GHN API
-            const deliveryOrder = await createDeliveryOrder(
-              `${values.firstName} ${values.lastName}`,
-              values.phone,
-              values.address,
-              values.ward,
-              values.district,
-              values.region,
-              cartList,
-            )
-            const shippingData = {
-              orderCode: deliveryOrder.order_code,
-              totalFee: Number((deliveryOrder.total_fee / 24815).toFixed(2)),
-              expectedDeliveryTime: deliveryOrder.expected_delivery_time,
-            }
+            // const deliveryOrder = await createDeliveryOrder(
+            //   `${values.firstName} ${values.lastName}`,
+            //   values.phone,
+            //   values.address,
+            //   values.ward,
+            //   values.district,
+            //   values.region,
+            //   cartList,
+            // )
+            // const shippingData = {
+            //   orderCode: deliveryOrder.order_code,
+            //   totalFee: Number((deliveryOrder.total_fee / 24815).toFixed(2)),
+            //   expectedDeliveryTime: deliveryOrder.expected_delivery_time,
+            // }
 
             // ** Create order through API
-            const url = 'http://localhost:3333/order'
-            const checkoutData = {
-              cart: cartList,
-              bill: values,
-              shipping: deliveryOrder.order_code,
-              totalPrice: Number((totalCost + shippingData.totalFee).toFixed(2)),
-              shippingFee: shippingData.totalFee,
-            }
-            const config = {
-              headers: {
-                Authorization: `Bearer ${userSlice.token}`,
-              },
-            }
-            const createOrderData = await axios.post(url, checkoutData, config).then((res) => res.data)
+            // const url = 'http://localhost:3333/order'
+            // const checkoutData = {
+            //   cart: cartList,
+            //   bill: values,
+            //   shipping: deliveryOrder.order_code,
+            //   totalPrice: Number((totalCost + shippingData.totalFee).toFixed(2)),
+            //   shippingFee: shippingData.totalFee,
+            // }
+            // const config = {
+            //   headers: {
+            //     Authorization: `Bearer ${userSlice.token}`,
+            //   },
+            // }
+            // const createOrderData = await axios.post(url, checkoutData, config).then((res) => res.data)
 
             // ** Update order state to local storage
+            // const shippingData = {
+            //   totalFee: 10,
+            // }
+
+            const createdOrder = await createOrder(order).then(({ data }) => data)
+
             setCompleteOrder({
-              orderId: createOrderData.orderId,
+              orderId: createdOrder.data._id,
               cart: cartList,
               bill: values,
-              shipping: shippingData,
-              totalPrice: Number((totalCost + shippingData.totalFee).toFixed(2)),
+              shipping: order.deliver.fee,
+              totalPrice: Number(totalCost.toFixed(2)),
             })
 
-            // ** Reset checkout:
             dispatch(resetCheckout())
             router.push('/checkout/order-complete')
           } catch (e) {
@@ -492,14 +507,14 @@ const BillingForm = ({ cartList, totalCost, customerBillingDetail }) => {
                               type="radio"
                               className="input-radio"
                               name="paymentMethod"
-                              value="paypal"
-                              checked={values.paymentMethod === 'paypal'}
-                              onChange={() => setFieldValue('paymentMethod', 'paypal', false)}
+                              value="vnpay"
+                              checked={values.paymentMethod === 'vnpay'}
+                              onChange={() => setFieldValue('paymentMethod', 'vnpay', false)}
                             />
-                            <label htmlFor="payment_method_bacs">PayPal</label>
-                            {values.paymentMethod === 'paypal' ? (
+                            <label htmlFor="payment_method_bacs">VNPay</label>
+                            {values.paymentMethod === 'vnpay' ? (
                               <div className="payment_box payment_method_bacs">
-                                <p>Make payments via PayPal. Orders will be shipped after payment has been made.</p>
+                                <p>Make payments via VNPay. Orders will be shipped after payment has been made.</p>
                               </div>
                             ) : null}
                           </li>

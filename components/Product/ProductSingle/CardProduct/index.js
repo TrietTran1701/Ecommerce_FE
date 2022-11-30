@@ -24,7 +24,7 @@ const CardProduct = ({ productSingleData }) => {
                   <div className="card-img-top">
                     <div className="post-image">
                       <Image
-                        src={product.images.length !== 0 ? product.images[0].url : '/images/no-image.png'}
+                        src={product.images.length !== 0 ? product.images[0] : '/images/no-image.png'}
                         alt={product.name}
                         width={IMAGE_QUALITY.MED}
                         height={IMAGE_QUALITY.MED}
@@ -53,7 +53,7 @@ const CardProduct = ({ productSingleData }) => {
                   <div className="card-body">
                     <p className="card-title">
                       <Link href="#">
-                        <a>{product.categories[0].category_name}</a>
+                        <a>{product.categoryName}</a>
                       </Link>
                     </p>
                     <p className="product-title">
@@ -63,11 +63,11 @@ const CardProduct = ({ productSingleData }) => {
                     </p>
                     <p className="price">
                       {isSale ? (
-                        <span className="off">{formatVNprice(product.price)}$</span>
+                        <span className="off">{formatVNprice(product.price)} $</span>
                       ) : (
-                        `${formatVNprice(product.price)}$`
+                        `${formatVNprice(product.price)} $`
                       )}
-                      {isSale ? <span>{formatVNprice(salePrice)}$</span> : null}
+                      {isSale ? <span>{formatVNprice(salePrice)} $</span> : null}
                     </p>
                   </div>
                 </div>

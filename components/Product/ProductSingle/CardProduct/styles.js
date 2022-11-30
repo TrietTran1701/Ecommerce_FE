@@ -1,4 +1,4 @@
-import css from "styled-jsx/css";
+import css from 'styled-jsx/css'
 
 export default css`
   .card-wrapper {
@@ -38,7 +38,7 @@ export default css`
           display: block;
 
           ${
-            "" /* img {
+            '' /* img {
             height: auto;
             z-index: -2;
             width: 100%;
@@ -57,7 +57,7 @@ export default css`
             display: none;
 
             .btn {
-              font-family: "Raleway", sans-serif;
+              font-family: 'Raleway', sans-serif;
               margin-top: 80%;
               padding: 6px 8px 2px 8px;
               background: #ffa6a8;
@@ -75,7 +75,7 @@ export default css`
         }
 
         .new {
-          font-family: "Raleway", sans-serif;
+          font-family: 'Raleway', sans-serif;
           padding: 7px 15px;
           color: white;
           position: absolute;
@@ -89,7 +89,7 @@ export default css`
         }
 
         .sale {
-          font-family: "Raleway", sans-serif;
+          font-family: 'Raleway', sans-serif;
           padding: 7px 15px;
           color: white;
           position: absolute;
@@ -119,7 +119,7 @@ export default css`
           margin-block-end: 1em;
 
           a {
-            font-family: "Raleway", sans-serif;
+            font-family: 'Raleway', sans-serif;
             color: #a1a1a1;
             font-size: 15px;
             text-decoration: none;
@@ -137,7 +137,7 @@ export default css`
           margin-block-end: 1em;
 
           a {
-            font-family: "Raleway", sans-serif;
+            font-family: 'Raleway', sans-serif;
             font-size: 20px;
             font-weight: 600;
             color: #333333;
@@ -152,13 +152,13 @@ export default css`
         }
 
         .price {
-          font-family: "Raleway", sans-serif;
+          font-family: 'Raleway', sans-serif;
           font-size: 25px;
           font-weight: 600;
           color: #ffa6a8;
 
           span {
-            font-family: "Raleway", sans-serif;
+            font-family: 'Raleway', sans-serif;
             display: block;
           }
 
@@ -171,4 +171,4 @@ export default css`
       }
     }
   }
-`;
+`

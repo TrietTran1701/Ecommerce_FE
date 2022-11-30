@@ -6,8 +6,8 @@ import Image from 'next/image'
 import styles from './styles'
 import Link from 'next/link'
 import Cookies from 'js-cookie'
-import axios from 'axios'
 import { MdEmail, MdLock, MdPerson } from 'react-icons/md'
+import { signIn, signUp } from 'utils/api'
 
 export const SignInForm = ({ setSignUp, callback }) => {
   const dispatch = useDispatch()
@@ -39,25 +39,15 @@ export const SignInForm = ({ setSignUp, callback }) => {
         password: '',
       }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        try {
-          const loginInData = await axios
-            .post('http://localhost:3333/auth/signin', {
-              email: values.email,
-              password: values.password,
-            })
-            .then((res) => res.data)
+        setSubmitting(true)
 
-          if (loginInData) {
-            const userInfo = {
-              id: loginInData.user.id,
-              username: loginInData.user.username,
-              firstName: loginInData.user.firstName,
-              lastName: loginInData.user.lastName,
-              token: loginInData.accessToken,
-            }
-            Cookies.set('user', JSON.stringify(userInfo), { expires: loginInData.expiredIn })
-            dispatch(setUser(userInfo))
-          }
+        try {
+          // Validate user
+          const res = await signIn(values).then(({ data }) => data)
+
+          // Set userSlice
+          dispatch(setUser(res))
+          Cookies.set('user', JSON.stringify(res), { expires: 60 / 1440 })
 
           callback()
         } catch (e) {
@@ -70,7 +60,7 @@ export const SignInForm = ({ setSignUp, callback }) => {
       {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
         <form name="sign-in" className="form-wrapper" encType="multipart/form-data" onSubmit={handleSubmit}>
           <div className="icon-lg">
-            <Image src="/images/auth-icon.png" width={128} height={128} alt="Image" />
+            <Image src="/images/Auth/Logo-black.svg" width={128} height={128} />
           </div>
           <div className="form-container">
             <div className="input">
@@ -172,28 +162,12 @@ export const SignUpForm = ({ setSignIn, callback }) => {
         password: '',
         passwordConfirm: '',
       }}
-      onSubmit={async (values, { setSubmitting, resetForm }) => {
+      onSubmit={async ({ passwordConfirm, ...values }, { setSubmitting, resetForm }) => {
+        console.log(passwordConfirm)
         try {
-          const registerData = await axios
-            .post('http://localhost:3333/auth/signup', {
-              firstName: values.firstName,
-              lastName: values.lastName,
-              email: values.email,
-              password: values.password,
-            })
-            .then((res) => res.data)
-
-          if (registerData) {
-            const userInfo = {
-              id: registerData.user.id,
-              username: registerData.user.username,
-              firstName: registerData.user.firstName,
-              lastName: registerData.user.lastName,
-              token: registerData.accessToken,
-            }
-            Cookies.set('user', JSON.stringify(userInfo), { expires: registerData.expiredIn })
-            dispatch(setUser(userInfo))
-          }
+          const res = await signUp(values).then(({ data }) => data)
+          Cookies.set('user', JSON.stringify(res), { expires: 60 / 1440 })
+          dispatch(setUser(res))
 
           callback()
         } catch (e) {

@@ -21,14 +21,13 @@ export default css`
 
           display: flex;
           align-items: center;
-          justify-content: center;
+          justify-content: flex-start;
           flex-wrap: wrap;
 
           .product-wrapper {
             display: block;
             text-align: center;
             padding: 10px;
-            margin: 10px 20px;
             flex: 25%;
             max-width: 25%;
 
@@ -46,30 +45,6 @@ export default css`
             }
 
             .product-img {
-              // position: relative;
-              // width: 500px;
-              // height: 100%;
-
-              // img {
-              //   object-fit: cover;
-              //   margin-bottom: 0.6rem;
-              // }
-              // span {
-              //   position: absolute;
-              //   bottom: 1.5rem;
-              //   left: 1rem;
-              //   right: 1rem;
-              //   padding: 1rem 0;
-              //   background-color: #ffffffef;
-              //   text-transform: uppercase;
-              //   font-weight: 700;
-              //   color: #1b73eb;
-              //   transition: all 0.2s ease-in-out;
-              //   &:hover {
-              //     cursor: pointer;
-              //     color: #0a0a0a;
-              //   }
-              // }
             }
             .product-detail {
               width: 100%;

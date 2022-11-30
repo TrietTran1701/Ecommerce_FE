@@ -24,10 +24,10 @@ const CustomPrevArrow = (props) => {
 
 const HeaderBanner = () => {
   const banners = [
-    { id: 1, src: '/banners/image3.jpg' },
-    { id: 2, src: '/banners/image2.jpg' },
-    { id: 3, src: '/banners/image4.jpg' },
-    { id: 4, src: '/banners/image1.png' },
+    { id: 1, src: '/banners/image43.png' },
+    { id: 2, src: '/banners/image44.png' },
+    { id: 3, src: '/banners/image45.png' },
+    { id: 4, src: '/banners/image46.png' },
   ]
 
   const settings = {
@@ -48,8 +48,21 @@ const HeaderBanner = () => {
         {banners.map((banner) => {
           return (
             <div key={banner.id}>
+              {/* <div style={{ height: 300, overflowY: 'hidden' }} className="temp">
+                <Image
+                  src={banner.src}
+                  lay
+                  width="100%"
+                  height={853}
+                  style={{ transform: 'translateY(-25%)', objectFit: 'cover' }}
+                />
+              </div> */}
               <div
-                style={{ backgroundImage: `url(${banner.src})`, backgroundSize: 'cover' }}
+                style={{
+                  backgroundImage: `url(${banner.src})`,
+                  backgroundSize: 'cover',
+                  backgroundPosition: '0 40%',
+                }}
                 className="background"
               ></div>
             </div>

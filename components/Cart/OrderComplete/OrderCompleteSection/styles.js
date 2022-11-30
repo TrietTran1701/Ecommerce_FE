@@ -103,6 +103,21 @@ export default css`
             margin-bottom: 10px;
           }
 
+          .payment-btn {
+            padding: 11px 15px;
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-radius: 4px;
+            border: 1px solid #000;
+            cursor: pointer;
+            transition: all 0.3s;
+
+            &:hover {
+              background: #eee;
+            }
+          }
+
           ul {
             padding: 0;
             margin: 0;

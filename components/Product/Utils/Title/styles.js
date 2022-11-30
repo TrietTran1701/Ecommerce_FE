@@ -3,8 +3,9 @@ import css from 'styled-jsx/css'
 export default css`
   .title-page {
     background-image: url(/banner.png);
-    background-position: center right;
+    background-position: left;
     background-repeat: no-repeat;
+    background-size: cover;
   }
 
   .container {
@@ -56,6 +57,7 @@ export default css`
       font-weight: 500;
       line-height: 1;
       font-family: 'El Messiri', sans-serif;
+      color: white;
 
       margin-top: 0;
       margin-bottom: 30px;
@@ -72,13 +74,13 @@ export default css`
       display: block;
       left: 0;
       bottom: -10px;
-      background: #ffa6a8;
+      background: white;
       -webkit-mask: url(/images/line-title2.svg) repeat left center;
       mask: url(/images/line-title2.svg) repeat left center;
     }
 
     .breadscrum {
-      color: #333333;
+      color: #fff;
       font-family: 'Raleway', sans-serif;
       font-size: 15px;
       margin-bottom: 1rem;
@@ -87,14 +89,12 @@ export default css`
         font-family: 'Raleway', sans-serif;
         font-size: 15px;
         text-decoration: none;
-      }
-
-      a:first-child {
         color: #c2c2c2;
       }
 
-      a:nth-child(2) {
-        color: #333333;
+      .current {
+        color: #fff;
+        text-decoration: underline;
       }
     }
   }

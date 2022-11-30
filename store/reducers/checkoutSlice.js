@@ -14,7 +14,7 @@ const initialState = {
     ward: '',
     address: '',
     orderComment: '',
-    paymentMethod: 'paypal',
+    paymentMethod: 'vnpay',
   },
   shipping: {
     orderCode: '',

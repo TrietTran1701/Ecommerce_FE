@@ -6,6 +6,7 @@ export default css`
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 0 32px;
   }
   h1.title {
     font-family: Ubuntu;

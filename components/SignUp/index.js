@@ -7,9 +7,8 @@ import Link from 'next/link'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { setUser } from 'store/reducers/userSlice'
+import { signUp } from 'utils/api'
 import Cookies from 'js-cookie'
-import axios from 'axios'
-import { MdEmail, MdLock, MdPerson } from 'react-icons/md'
 
 const SignUp = () => {
   const dispatch = useDispatch()
@@ -40,7 +39,7 @@ const SignUp = () => {
   return (
     <div className="wrapper">
       <div className="round-layer">
-        <Image src="/images/sign-in-background.jpg" layout="fill" objectFit="cover" alt="background" />
+        <Image src="/images/Auth/BG.png" layout="fill" alt="background" />
       </div>
       <Formik
         validationSchema={USER_SCHEMA}
@@ -51,45 +50,35 @@ const SignUp = () => {
           password: '',
           passwordConfirm: '',
         }}
-        onSubmit={async (values, { setSubmitting, resetForm }) => {
+        onSubmit={async ({ passwordConfirm, ...values }, { setSubmitting, resetForm }) => {
+          console.log(values)
+          console.log(passwordConfirm)
           try {
-            const registerData = await axios
-              .post('http://localhost:3333/auth/signup', {
-                firstName: values.firstName,
-                lastName: values.lastName,
-                email: values.email,
-                password: values.password,
-              })
-              .then((res) => res.data)
+            setSubmitting(true)
+            // Register user
+            const res = await signUp(values).then(({ data }) => data)
 
-            if (registerData) {
-              const userInfo = {
-                id: registerData.user.id,
-                username: registerData.user.username,
-                firstName: registerData.user.firstName,
-                lastName: registerData.user.lastName,
-                token: registerData.accessToken,
-              }
-              Cookies.set('user', JSON.stringify(userInfo), { expires: registerData.expiredIn })
-              dispatch(setUser(userInfo))
-              router.push('/')
-            }
+            // Set userSlice
+            dispatch(setUser(res))
+            Cookies.set('user', JSON.stringify(res), { expires: 60 / 1440 })
+            router.push('/')
+            resetForm({ firstName: '', lastName: '', email: '', password: '', passwordConfirm: '' })
+            setSubmitting(false)
           } catch (e) {
-            console.log(e)
+            resetForm({ firstName: '', lastName: '', email: '', password: '', passwordConfirm: '' })
+            setSubmitting(false)
           }
-          setSubmitting(false)
-          resetForm()
         }}
       >
         {({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
           <form name="sign-in" className="form-wrapper" encType="multipart/form-data" onSubmit={handleSubmit}>
-            <div className="icon-lg">
-              <Image src="/images/auth-icon.png" width={128} height={128} alt="Icon" />
-            </div>
+            {/* <div className="icon-lg">
+              <Image src="/images/Auth/Logo.svg" width={128} height={128} />
+            </div> */}
             <div className="form-container">
               <div className="input">
                 <div className="icon-sm">
-                  <MdPerson fontSize={24} />
+                  <Image src="/images/Auth/user.svg" width={24} height={24} />
                 </div>
                 <input
                   type="text"
@@ -97,17 +86,17 @@ const SignUp = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.firstName}
-                  placeholder="Enter first name"
+                  placeholder="FIRST NAME"
                 />
               </div>
-              {touched.firstName && errors.firstName && (
+              {touched['firstName'] && errors['firstName'] && (
                 <div className="error">
-                  <p>{errors.firstName}</p>
+                  <p>{errors['firstName']}</p>
                 </div>
               )}
               <div className="input">
                 <div className="icon-sm">
-                  <MdPerson fontSize={24} />
+                  <Image src="/images/Auth/user.svg" width={24} height={24} />
                 </div>
                 <input
                   type="text"
@@ -115,18 +104,18 @@ const SignUp = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.lastName}
-                  placeholder="Enter last name"
+                  placeholder="LAST NAME"
                 />
               </div>
-              {touched.lastName && errors.lastName && (
+              {touched['lastName'] && errors['lastName'] && (
                 <div className="error">
-                  <p>{errors.lastName}</p>
+                  <p>{errors['lastName']}</p>
                 </div>
               )}
 
               <div className="input">
                 <div className="icon-sm">
-                  <MdEmail fontSize={24} />
+                  <Image src="/images/Auth/email.svg" width={24} height={24} />
                 </div>
                 <input
                   type="text"
@@ -134,17 +123,17 @@ const SignUp = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.email}
-                  placeholder="Enter email"
+                  placeholder="EMAIL"
                 />
               </div>
-              {touched.email && errors.email && (
+              {touched['email'] && errors['email'] && (
                 <div className="error">
-                  <p>{errors.email}</p>
+                  <p>{errors['email']}</p>
                 </div>
               )}
               <div className="input">
                 <div className="icon-sm">
-                  <MdLock fontSize={24} />
+                  <Image src="/images/Auth/lock.svg" width={24} height={24} />
                 </div>
                 <input
                   type="password"
@@ -152,18 +141,17 @@ const SignUp = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.password}
-                  placeholder="Enter password"
+                  placeholder="PASSWORD"
                 />
               </div>
-              {touched.password && errors.password && (
+              {touched['password'] && errors['password'] && (
                 <div className="error">
-                  <p>{errors.password}</p>
+                  <p>{errors['password']}</p>
                 </div>
               )}
-
               <div className="input">
                 <div className="icon-sm">
-                  <MdLock fontSize={24} />
+                  <Image src="/images/Auth/lock.svg" width={24} height={24} />
                 </div>
                 <input
                   type="password"
@@ -171,12 +159,12 @@ const SignUp = () => {
                   onChange={handleChange}
                   onBlur={handleBlur}
                   value={values.passwordConfirm}
-                  placeholder="Enter confirm password"
+                  placeholder="CONFIRM PASSWORD"
                 />
               </div>
-              {touched.passwordConfirm && errors.passwordConfirm && (
+              {touched['passwordConfirm'] && errors['passwordConfirm'] && (
                 <div className="error">
-                  <p>{errors.passwordConfirm}</p>
+                  <p>{errors['passwordConfirm']}</p>
                 </div>
               )}
             </div>

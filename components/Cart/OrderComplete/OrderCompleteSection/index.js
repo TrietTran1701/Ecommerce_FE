@@ -1,28 +1,56 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import styles from './styles'
-import PaymentSection from '../PaymentSection'
+import Cookies from 'js-cookie'
+import { createPayment, updateOrder } from 'utils/api'
+import { useSelector } from 'react-redux'
 
 const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, orderId }) => {
-  const [isPaid, setIsPaid] = useState(false)
+  const [isPaid, setIsPaid] = useState(0)
   const orderingDate = new Date()
-  const shippingDate = new Date(shipInfo.expectedDeliveryTime)
+  // const shippingDate = new Date(shipInfo.expectedDeliveryTime)
   const paymentMethodObj = {
-    paypal: 'Paypal',
+    vnpay: 'VN Pay',
     cod: 'Cash on Delivery',
   }
-  const renderPayment = (isPaid) => {
-    if (billInfo.paymentMethod === 'paypal') {
-      if (!isPaid) {
+
+  const userId = useSelector((state) => state.user.id)
+
+  useEffect(() => {
+    if (Cookies.get('isPaid')) setIsPaid(Number(JSON.parse(Cookies.get('isPaid'))))
+    // setIsPaid()
+  }, [])
+
+  const renderPayment = () => {
+    const isPaid = Cookies.get('isPaid')
+    if (billInfo.paymentMethod === 'vnpay') {
+      if (!isPaid || isPaid == 0) {
         return (
           <div className="payment">
             <p className="payment-title">Please click this button to pay</p>
-            <PaymentSection totalCost={totalCost} orderId={orderId} setIsPaid={setIsPaid} />
+            <div
+              className="payment-btn"
+              onClick={async () => {
+                const resUrl = await createPayment({ orderId, totalCost }).then(({ data }) => {
+                  return data.url
+                })
+
+                window.location.assign(resUrl)
+              }}
+            >
+              <Image src="/vnpay.svg" width={115} height={32} />
+            </div>
             <style jsx>{styles}</style>
           </div>
         )
       } else {
+        const updateOrderStatus = async () => {
+          const data = await updateOrder({ userId, orderId, status: 1 }).then((res) => res.data.listRoom)
+          console.log(data)
+        }
+        updateOrderStatus()
+
         return (
           <div className="payment">
             <p className="payment-title">Thank you for complete your payment!</p>
@@ -33,6 +61,7 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
     }
     return null
   }
+  console.log(totalCost, shipInfo)
 
   return (
     <div className="wrapper">
@@ -52,13 +81,13 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
                   </Link>
                   {' x'} {cart.quantity}
                 </div>
-                <p className="price">{(cart.price * cart.quantity).toFixed(2)}$</p>
+                <p className="price">{(cart.price * cart.quantity).toFixed(2)} $</p>
               </div>
             )
           })}
           <div className="row-cell">
             <p className="sub-total">Subtotal</p>
-            <p className="sub-price">{(totalCost - shipInfo.totalFee).toFixed(2)}$</p>
+            <p className="sub-price">{Number(totalCost).toFixed(2)} $</p>
           </div>
           <div className="row-cell">
             <p className="shipping">Shipping by</p>
@@ -68,11 +97,11 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
           </div>
           <div className="row-cell">
             <p className="shipping-cost">Shipping cost</p>
-            <p className="price">{shipInfo.totalFee}$</p>
+            <p className="price">{shipInfo} $</p>
           </div>
           <div className="row-cell">
             <p className="total">Total</p>
-            <p className="price">{totalCost}$</p>
+            <p className="price">{totalCost + shipInfo} $</p>
           </div>
         </div>
         <div className="col-large-5">
@@ -91,11 +120,11 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
               <li>
                 Expected delivery date:{' '}
                 <span className="date">
-                  {shippingDate.getUTCDate()}/{shippingDate.getUTCMonth() + 1}/{shippingDate.getUTCFullYear()}
+                  {new Date().getUTCDate()}/{new Date().getUTCMonth() + 1}/{new Date().getUTCFullYear()}
                 </span>
               </li>
               <li>
-                Total: <span className="price">{totalCost}$</span>
+                Total: <span className="price">{totalCost + shipInfo} $</span>
               </li>
               <li>
                 Payment method: <span className="payment-method">{paymentMethodObj[billInfo.paymentMethod]}</span>

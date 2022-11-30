@@ -6,15 +6,21 @@ import { PRODUCT_TYPE } from 'utils/constant'
 import NavBar from 'components/NavBar'
 import Footer from 'components/Utils/Footer'
 
-const Product = ({ productType, productData, categoryList = [] }) => {
+const Product = ({ productType, productData, categoryList = [], status, totalStatus, totalProductStatus }) => {
   return (
     <div className="product-wrapper">
       <NavBar />
-      <Title productType={productType} productName={productType === PRODUCT_TYPE.SINGLE ? productData.name : ''} />
+      <Title productType={productType} productName={productType === PRODUCT_TYPE.SINGLE ? productData._doc.name : ''} />
       {productType === PRODUCT_TYPE.SINGLE ? (
         <ProductSingle isModel={false} productSingleData={productData} />
       ) : (
-        <ProductList productListData={productData} categoryList={categoryList} />
+        <ProductList
+          productListData={productData}
+          categoryList={categoryList}
+          status={status}
+          totalStatus={totalStatus}
+          totalProductStatus={totalProductStatus}
+        />
       )}
       <Footer />
       <style jsx>{styles}</style>

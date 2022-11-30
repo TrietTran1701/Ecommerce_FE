@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import Product from 'components/Product'
 import { PRODUCT_TYPE } from 'utils/constant'
-import axios from 'axios'
+import { getProductDetail } from 'utils/api'
 
 const ProductSinglePage = ({ productData }) => {
   const router = useRouter()
@@ -12,19 +12,10 @@ const ProductSinglePage = ({ productData }) => {
   return <Product productType={PRODUCT_TYPE.SINGLE} productData={productData} />
 }
 
-export async function getStaticPaths() {
-  const pListIds = await axios.get(`${process.env.HOST_API}/product/listId`).then((res) => res.data)
-
-  return {
-    paths: pListIds.map((id) => ({ params: { id } })),
-    fallback: 'blocking',
-  }
-}
-
-export async function getStaticProps({ params }) {
+export async function getServerSideProps({ params }) {
   const { id } = params
 
-  const productData = await axios.get(`${process.env.HOST_API}/product/${id}`).then((res) => res.data.productDetail)
+  const productData = await getProductDetail({ id }).then(({ data }) => data.data)
 
   if (!productData) {
     return {
@@ -36,7 +27,6 @@ export async function getStaticProps({ params }) {
     props: {
       productData,
     },
-    revalidate: 10,
   }
 }
 

@@ -4,40 +4,38 @@ import { LIMIT_PRODUCT_ORDER_LIST, ORDER_STATUS } from 'utils/constant'
 import styles from './styles'
 import { DeliveryIcon } from 'components/Utils/Icon'
 
-const OrderList = ({ orderList }) => {
-  const currentStatus = -1
-  // const [searchText, setSearchText] = useState('')
+const OrderList = ({ orderList, status, setStatus }) => {
   const shippingColor = {
-    ready_to_pick: '#E3503E ',
-    picking: '#F3A638',
-    picked: '##54B7D3',
-    storing: '#1E91CF',
-    return: '#E3D4D4',
+    5: '#E3503E',
+    0: '#F3A638',
+    1: '#F3A638',
+    2: '#54B7D3',
+    3: '#1E91CF',
+    4: '#4CB64C',
+    // 5: '#E3D4D4',
   }
   const shippingTitle = {
-    ready_to_pick: 'Ready to Pick',
-    picking: 'Picking',
-    picked: 'Picked',
-    storing: 'Storing',
-    return: 'Return',
+    5: 'Cancelled',
+    0: 'Waiting for confirmed',
+    1: 'Waiting for confirmed',
+    2: 'Waiting for picking',
+    3: 'Delivering',
+    4: 'Complete',
   }
-
-  if (orderList.length === 0)
-    return (
-      <div>
-        <p>You do not have any orders.</p>
-        <Link href="/products">
-          <a>Click here to buy our products!</a>
-        </Link>
-      </div>
-    )
 
   return (
     <div className="wrapper">
       <div className="nav-container">
         {Object.entries(ORDER_STATUS).map(([key, value]) => {
+          value = value == 1 ? 0 : value
           return (
-            <div className={`status-container ${value === currentStatus ? 'active' : ''}`} key={key}>
+            <div
+              className={`status-container ${value == status ? 'active' : ''}`}
+              key={key}
+              onClick={() => {
+                setStatus(value)
+              }}
+            >
               <p className="status">{key}</p>
             </div>
           )
@@ -57,25 +55,31 @@ const OrderList = ({ orderList }) => {
       </div> */}
       <div className="order-container">
         {orderList.map((order) => {
+          console.log(order.status)
           return (
             <div className="card" key={order.id}>
               <div className="top">
                 <div className="status">
-                  <DeliveryIcon width={20} height={20} stroke={shippingColor[order.shipping.status]} fill={'white'} />
-                  <p style={{ color: shippingColor[order.shipping.status] }}>{shippingTitle[order.shipping.status]}</p>
+                  <DeliveryIcon
+                    width={20}
+                    height={20}
+                    stroke={shippingColor[order.status]}
+                    fill={shippingColor[order.status]}
+                  />
+                  <p style={{ color: shippingColor[order.status] }}>{shippingTitle[order.status]}</p>
                   {/* <div className="column-divider"></div>
                   <p style={{ color: '#DD583B' }}>DELIVERED</p> */}
                 </div>
                 <div className="divider"></div>
                 <div className="product-container">
-                  {order.cart.map((product, idx) => {
+                  {order.products.map((product, idx) => {
                     if (idx + 1 > LIMIT_PRODUCT_ORDER_LIST) return <div key={idx}></div>
                     return (
                       <div key={product.id} className="product">
                         <div className="info-container">
                           <div className="image">
                             <Image
-                              src={product.images.length ? product.images[0].url : '/images/no-image.png'}
+                              src={product.images.length ? product.images[0] : '/images/no-image.png'}
                               width={104}
                               height={104}
                               alt="Product Image"
@@ -87,7 +91,7 @@ const OrderList = ({ orderList }) => {
                           </div>
                         </div>
                         <div className="cost">
-                          <p>{product.price}$</p>
+                          <p>{product.price} $</p>
                         </div>
                       </div>
                     )
@@ -98,7 +102,7 @@ const OrderList = ({ orderList }) => {
               <div className="bottom">
                 <div className="total-cost">
                   <p style={{ fontWeight: 700, fontSize: 16 }}>
-                    Total: <span style={{ color: '#dd583b' }}>{order.totalPrice + order.shippingFee}$</span>
+                    Total: <span style={{ color: '#dd583b' }}>{order.totalCost + order.deliver.fee} $</span>
                   </p>
                 </div>
                 <Link href={`/order-management/${order._id}`}>

@@ -12,10 +12,18 @@ const Title = ({ orderId }) => {
               <Link href="/">
                 <a>Home</a>
               </Link>
+              <span style={{ color: 'white' }}>/</span>
               <Link href="/order-management">
-                <a>/Order Management</a>
+                <a className={!orderId ? 'current' : ''}>Order Management</a>
               </Link>
-              {orderId ? `/${orderId}` : ''}
+              {orderId ? (
+                <>
+                  <span style={{ color: 'white' }}>/</span>
+                  <span className={'current'}>{orderId}</span>
+                </>
+              ) : (
+                ''
+              )}
             </div>
           </div>
         </div>

@@ -3,14 +3,8 @@ import Image from 'next/image'
 import styles from './styles'
 import { useRouter } from 'next/router'
 
-const Products = ({ productListData, query, setQuery }) => {
+const Products = ({ productListData, query, setQuery, status, totalStatus }) => {
   const router = useRouter()
-
-  const firstCapitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-  }
-
-  const { data, total, page, last_page } = productListData
 
   const handleChangePage = (page) => {
     router.replace({
@@ -27,17 +21,21 @@ const Products = ({ productListData, query, setQuery }) => {
   }
 
   const handleChangeOrder = (e) => {
-    const orderBy = e.target.value
+    const sort = e.target.value
     router.replace({
       pathname: '/products',
       query: {
         ...query,
-        orderBy,
+        page: 1,
+        limit: 12,
+        sort,
       },
     })
     setQuery({
       ...query,
-      orderBy,
+      page: 1,
+      limit: 12,
+      sort,
     })
   }
 
@@ -45,37 +43,42 @@ const Products = ({ productListData, query, setQuery }) => {
     <div className="elementor-column">
       <div className="elementor-column-wrapper">
         <div className="woocommerce">
-          <p className="woocommerce-result-count">{`Show ${(page - 1) * 9 + 1} - ${
-            page * 9 > total ? total : page * 9
-          } of ${total} products`}</p>
-          <form className="woocommerce-ordering" action="">
+          <p className="woocommerce-result-count">{`Show ${(status.page - 1) * 12 + 1} - ${
+            (status.page - 1) * 12 + status.count
+          } of ${totalStatus.count} products`}</p>
+          <div className="woocommerce-ordering" action="">
             <select name="orderby" className="select-order" onChange={handleChangeOrder}>
               <option value="">Default order</option>
-              <option value="priceAsc">Price order from Low to High</option>
-              <option value="priceDesc">Price order from High to Low</option>
+              <option value="asc">Price order from Low to High</option>
+              <option value="desc">Price order from High to Low</option>
             </select>
-          </form>
+          </div>
           <ul className="products">
-            {data.map((product, idx) => (
+            {productListData?.map((product, idx) => (
               <li className="product" key={idx}>
                 <div className="product-img">
-                  <Image src={product.images[0].url} alt={`Images of ${product.name}`} width={900} height={900} />
+                  <Image
+                    src={product.images && product.images.length ? product.images[0] : '/no-image.png'}
+                    alt={`Images of ${product.name}`}
+                    width={900}
+                    height={900}
+                  />
                 </div>
                 <div className="product-detail">
-                  <span className="product-category">{firstCapitalize(product.categories[0].category_name)}</span>
+                  <span className="product-category">{product.categoryName}</span>
                   <Link href={`/products/${product._id}`} passHref>
                     <a className="product-link">
                       <h2>{product.name}</h2>
                     </a>
                   </Link>
-                  <span className="price">{`${product.price}$`}</span>
+                  <span className="price">{`${product.price} $`}</span>
                 </div>
               </li>
             ))}
           </ul>
-          <nav className="woocommerce-pagination">
+          <div className="woocommerce-pagination">
             <ul>
-              {[...Array(last_page).keys()].map((ele, idx) => (
+              {[...Array(totalStatus.totalPage).keys()].map((ele, idx) => (
                 <li
                   className="page-number"
                   key={idx}
@@ -86,11 +89,18 @@ const Products = ({ productListData, query, setQuery }) => {
                   <span>{ele + 1}</span>
                 </li>
               ))}
-              <li className="page-number" key={last_page + 1}>
+              <li
+                className="page-number"
+                key={totalStatus.totalPage}
+                onClick={() => {
+                  if (status.page >= totalStatus.totalPage) return
+                  handleChangePage(status.page + 1)
+                }}
+              >
                 <span>→</span>
               </li>
             </ul>
-          </nav>
+          </div>
         </div>
       </div>
       <style jsx>{styles}</style>

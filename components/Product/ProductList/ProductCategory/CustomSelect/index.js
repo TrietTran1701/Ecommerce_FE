@@ -5,10 +5,6 @@ import styles from './styles'
 const CustomSelect = ({ categoryList, query, setQuery, totalProduct }) => {
   const router = useRouter()
 
-  const firstCapitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-  }
-
   useEffect(() => {
     const productWrapper = document.querySelector('.product-wrapper')
     const selectResultsOption = document.querySelector('.select-results-options')
@@ -35,25 +31,29 @@ const CustomSelect = ({ categoryList, query, setQuery, totalProduct }) => {
     }
   }, [])
 
-  const handleChangeCate = (cate) => {
-    if (cate) {
+  const handleChangeCate = (name) => {
+    if (name) {
       router.replace({
         pathname: '/products',
         query: {
           ...query,
-          categories: cate._id,
+          page: 1,
+          limit: 12,
+          categoryName: name,
         },
       })
-      setQuery({ ...query, categories: cate })
+      setQuery({ ...query, page: 1, limit: 12, categoryName: name })
     } else {
       router.replace({
         pathname: '/products',
         query: {
           ...query,
-          categories: '',
+          page: 1,
+          limit: 12,
+          categoryName: '',
         },
       })
-      setQuery({ ...query, categories: '' })
+      setQuery({ ...query, page: 1, limit: 12, categoryName: name })
     }
   }
 
@@ -61,13 +61,14 @@ const CustomSelect = ({ categoryList, query, setQuery, totalProduct }) => {
     <span className="select-dropdown select-dropdown-below">
       <span className="select-results">
         <ul className="select-results-options">
-          <li className="select-results-option" onClick={() => handleChangeCate('')}>
+          <li className="select-results-option" onClick={() => handleChangeCate(null)}>
             {`All categories (${totalProduct})`}
           </li>
           {categoryList.map((cate) => {
+            if (!cate.quantity) return <li key={cate._id}></li>
             return (
-              <li className="select-results-option" key={cate._id} onClick={() => handleChangeCate(cate)}>
-                {`${firstCapitalize(cate.category_name)} (${cate.totalProducts})`}
+              <li className="select-results-option" key={cate._id} onClick={() => handleChangeCate(cate.name)}>
+                {`${cate.name} (${cate.quantity})`}
               </li>
             )
           })}

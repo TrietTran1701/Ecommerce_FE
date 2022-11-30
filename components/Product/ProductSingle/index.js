@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react'
 import styles from './styles'
 import Image from 'next/image'
-import RelatedProduct from 'components/Product/ProductSingle/RelatedProduct'
+// import RelatedProduct from 'components/Product/ProductSingle/RelatedProduct'
 import Slider from 'components/Utils/Slider/Slider'
 import ProductInformation from 'components/Product/Utils/ProductInformation'
 import Link from 'next/link'
@@ -17,11 +17,12 @@ const ProductSingle = ({ isModel, productSingleData }) => {
   const dispatch = useDispatch()
 
   const handleAddToCart = () => {
+    const data = productSingleData._doc
     const productCart = {
-      id: productSingleData._id,
-      name: productSingleData.name,
-      images: productSingleData.images,
-      price: productSingleData.price,
+      id: data._id,
+      name: data.name,
+      images: data.images,
+      price: data.price,
       quantity: 1,
     }
     dispatch(addItem({ ...productCart, quantity: productQuantity }))
@@ -41,18 +42,17 @@ const ProductSingle = ({ isModel, productSingleData }) => {
     window.addEventListener('resize', handleWindowChange)
     return window.removeEventListener('resize', handleWindowChange)
   }, [isModel])
-
   return (
     <>
       <div className="container">
         <div className="product-single-detail">
           <div className="row product_detail">
             <div className="col-md-6">
-              <Slider DynamicWidth={dynamicWidth} sliderData={productSingleData} />
+              <Slider DynamicWidth={dynamicWidth} sliderData={productSingleData._doc} />
             </div>
             <div className="col-md-6 content-product">
               <h2>
-                {productSingleData.name} | {formatVNprice(productSingleData.price)}$
+                {productSingleData._doc.name} | {formatVNprice(productSingleData._doc.price)} $
               </h2>
               <div className="star-review">
                 {[0, 1, 2, 3, 4].map((ele) => {
@@ -64,23 +64,20 @@ const ProductSingle = ({ isModel, productSingleData }) => {
                 })}
                 <p>(1 customer reviews)</p>
               </div>
-              {productSingleData.shortDescription ? (
+              {productSingleData._doc.description ? (
                 <div
                   className="product-single-short-desc"
                   dangerouslySetInnerHTML={{
-                    __html: productSingleData.shortDescription,
+                    __html: productSingleData._doc.description,
                   }}
                 ></div>
               ) : null}
               <div className="infor-product">
                 <p>
-                  <span>Sku: </span> {productSingleData.productSKU}
+                  <span>Sku: </span> {productSingleData._doc.SKU}
                 </p>
                 <p>
-                  <span>Categories: </span>{' '}
-                  {productSingleData.categories.map((category, index) =>
-                    index !== 0 ? ', ' + category.category_name : category.category_name,
-                  )}
+                  <span>Categories: {productSingleData._doc.categoryName}</span>
                 </p>
                 <div>
                   <span>Share: </span>
@@ -123,7 +120,7 @@ const ProductSingle = ({ isModel, productSingleData }) => {
         </div>
         <style jsx>{styles}</style>
       </div>
-      {isModel ? null : <RelatedProduct productSingleData={productSingleData} />}
+      {/* {isModel ? null : <RelatedProduct productSingleData={productSingleData.relatedProduct} />} */}
     </>
   )
 }

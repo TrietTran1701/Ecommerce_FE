@@ -30,19 +30,15 @@ const Footer = () => {
       title: 'Services',
       items: [
         {
-          name: '5 Star Standard Pet Spa',
+          name: 'Aquarium decoration design',
           path: '#',
         },
         {
-          name: 'Pet Bathing Service',
+          name: 'Home aquarium decoration',
           path: '#',
         },
         {
-          name: 'Trimming, Styling Service',
-          path: '#',
-        },
-        {
-          name: 'Supply Products, Accessories',
+          name: 'Installation service',
           path: '#',
         },
       ],
@@ -51,20 +47,20 @@ const Footer = () => {
       title: 'Pages',
       items: [
         {
-          name: 'Homepage',
-          path: '#',
+          name: 'Home',
+          path: '/',
         },
         {
           name: 'Products',
-          path: '#',
+          path: '/products',
         },
-        {
-          name: 'Blogs',
-          path: '#',
-        },
+        // {
+        //   name: 'Blogs',
+        //   path: '#',
+        // },
         {
           name: 'Checkout',
-          path: '#',
+          path: '/checkout',
         },
       ],
     },
@@ -77,7 +73,7 @@ const Footer = () => {
           <div className="brand-logo">
             <Image
               className="logo"
-              src="/images/logo-white.svg"
+              src="/Dragon Fish - white.png"
               alt="companyLogo"
               width={300}
               height={80}
@@ -85,9 +81,9 @@ const Footer = () => {
             />
           </div>
           <div className="brand-desc">
-            Release with the desire to bring customers professionalism, prestige with beautiful beauty, we bring the
-            best experience for our pets. With many years of experience in the pet service industry including: Pet Spa,
-            Pet Hotel, Pet Home Service, ...
+            Born with the desire to bring customers professionalism, prestige with beautiful beauty, we bring the best
+            experience to our fish. With many years of experience in the aquarium service industry, including: aquarium
+            care, aquarium hotel, home aquarium service, ...
           </div>
           <div className="brand-address">
             <Image src="/icons/Address.svg" alt="address" height={40} width={40} objectFit="contain" />
@@ -99,7 +95,7 @@ const Footer = () => {
           </div>
           <div className="brand-email">
             <Image src="/icons/Mail.svg" alt="address" height={40} width={40} objectFit="contain" />
-            <p>Email: nam.vo@example.com</p>
+            <p>Email: dragonfish.assist@gmail.com</p>
           </div>
         </div>
         <div className="information-container">

@@ -2,7 +2,7 @@ import css from 'styled-jsx/css'
 
 export default css`
   .isChosen {
-    background: #ffa6a8;
+    background: #061341;
     color: white !important;
     border-radius: 10px;
   }
@@ -21,9 +21,8 @@ export default css`
 
       .image-logo {
         height: 40px;
-        img {
-          height: 100%;
-        }
+        position: relative;
+        transform: translateY(-40%);
       }
 
       .menus {
@@ -44,7 +43,7 @@ export default css`
           }
           &:hover {
             .title {
-              background: #ffa6a8;
+              background: #061341;
               color: white;
             }
           }
@@ -137,7 +136,7 @@ export default css`
                     padding: 10px 0;
 
                     &:hover {
-                      color: #ffa6a8;
+                      color: #061341;
                     }
                   }
 
@@ -309,7 +308,7 @@ export default css`
                 padding: 12px 0px;
                 text-decoration: none;
                 color: white;
-                background: #ffa6a8;
+                background: #061341;
                 border: 2px solid white;
                 transition: background 0.3s, color 0.3s, border 0.3s;
                 font-family: 'Raleway', sans-serif;
@@ -317,8 +316,8 @@ export default css`
                 font-weight: bold;
 
                 &:hover {
-                  color: #ffa6a8;
-                  border-color: #ffa6a8;
+                  color: #061341;
+                  border-color: #061341;
                   background: white;
                 }
               }
@@ -397,7 +396,7 @@ export default css`
 
               &:hover {
                 div {
-                  background: #ffa6a8;
+                  background: #061341;
                   color: white;
                 }
               }

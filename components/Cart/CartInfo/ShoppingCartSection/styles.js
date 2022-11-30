@@ -165,7 +165,7 @@ export default css`
             align-items: center;
             padding: 12px 20px;
             color: white;
-            background: #ffa6a8;
+            background: #061341;
             border: 2px solid white;
             transition: border 0.3s, background 0.3s, color 0.3s;
 
@@ -176,9 +176,9 @@ export default css`
 
           &:hover {
             .go-back {
-              border-color: #ffa6a8;
+              border-color: #061341;
               background: white;
-              color: #ffa6a8;
+              color: #061341;
             }
           }
         }
@@ -253,7 +253,7 @@ export default css`
           padding: 10px;
           cursor: pointer;
           margin-top: 30px;
-          background: #ffa6a8;
+          background: #061341;
           color: white;
           border: 2px solid white;
           transition: background 0.3s, color 0.3s, border 0.3s;
@@ -263,8 +263,8 @@ export default css`
           line-height: 1.5;
 
           &:hover {
-            color: #ffa6a8;
-            border-color: #ffa6a8;
+            color: #061341;
+            border-color: #061341;
             background: white;
           }
         }
@@ -392,7 +392,7 @@ export default css`
           .button {
             width: 100%;
             padding: 11px 15px;
-            color: #c58725;
+            color: #2148c0;
             font-size: 16px;
             lineheight: 20px;
             font-weight: bold;
@@ -403,8 +403,8 @@ export default css`
             cursor: pointer;
 
             &:hover {
-              background: #c58725;
-              border: 1px solid #333;
+              background: #2148c0;
+              border: 1px solid #2148c0;
               color: #ffffff;
             }
 

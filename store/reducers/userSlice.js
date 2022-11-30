@@ -1,12 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 export const initialState = {
-  id: '',
+  id: null,
   firstName: '',
   lastName: '',
   username: '',
-  token: '',
-  expiredIn: '',
+  authorization: {},
 }
 
 const UserSlice = createSlice({
@@ -14,22 +13,26 @@ const UserSlice = createSlice({
   initialState,
   reducers: {
     setUser(state, action) {
-      const { id, firstName, lastName, username, token = '', expiredIn = '' } = action.payload
-      state.id = id
+      const {
+        user: { _id, firstName, lastName, username },
+        authorization,
+      } = action.payload
+      state.id = _id
       state.firstName = firstName
       state.lastName = lastName
       state.username = username
-      state.token = token
-      state.expiredIn = expiredIn
+      state.authorization = authorization
     },
     resetUser(state, action) {
-      const { id, firstName, lastName, username, token, expiredIn } = initialState
-      state.id = id
+      const {
+        user: { _id, firstName, lastName, username },
+        authorization,
+      } = action.payload
+      state.id = _id
       state.firstName = firstName
       state.lastName = lastName
       state.username = username
-      state.token = token
-      state.expiredIn = expiredIn
+      state.authorization = authorization
     },
   },
 })
@@ -39,7 +42,7 @@ export const setUser = (user) => async (dispatch, getState) => {
 }
 
 export const resetUser = () => async (dispatch, getState) => {
-  dispatch(UserSlice.actions.resetUser())
+  dispatch(UserSlice.actions.resetUser(initialState))
 }
 
 export default UserSlice

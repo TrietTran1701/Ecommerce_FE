@@ -55,12 +55,12 @@ const Slider = ({ DynamicWidth, sliderData }) => {
       <div className="flexslider" id="slider">
         <div className="flex-viewport">
           <ul className="slides" style={translation.bigImage}>
-            {sliderData.images.length !== 0 ? (
+            {sliderData.images && sliderData.images.length ? (
               sliderData.images.map((image, index) => {
                 return (
                   <li className="big-image" style={{ width: `${DynamicWidth}px` }} key={index}>
                     <Image
-                      src={image.url}
+                      src={image}
                       alt="Hình ảnh sản phẩm to"
                       width={IMAGE_QUALITY.HIGH}
                       height={IMAGE_QUALITY.HIGH}
@@ -73,7 +73,7 @@ const Slider = ({ DynamicWidth, sliderData }) => {
             ) : (
               <li className="big-image" style={{ width: `${DynamicWidth}px` }}>
                 <Image
-                  src="/products/big-product-1.jpg"
+                  src="/no-image.png"
                   alt="Hình ảnh sản phẩm to"
                   width={IMAGE_QUALITY.HIGH}
                   height={IMAGE_QUALITY.HIGH}
@@ -87,12 +87,12 @@ const Slider = ({ DynamicWidth, sliderData }) => {
       <div className="flexslider" id="carousel">
         <div className="flex-viewport">
           <ul className="slides" style={translation.smallImage}>
-            {sliderData.images.length !== 0 ? (
+            {sliderData.images && sliderData.images.length ? (
               sliderData.images.map((image, index) => {
                 return (
                   <li className="small-image" key={index}>
                     <Image
-                      src={image.url}
+                      src={image}
                       alt="Hình ảnh sản phẩm nhỏ"
                       width={IMAGE_QUALITY.LOW}
                       height={IMAGE_QUALITY.LOW}
@@ -105,7 +105,7 @@ const Slider = ({ DynamicWidth, sliderData }) => {
             ) : (
               <li className="small-image">
                 <Image
-                  src="/products/big-product-1.jpg"
+                  src="/no-image.png"
                   alt="Hình ảnh sản phẩm nhỏ"
                   width={IMAGE_QUALITY.LOW}
                   height={IMAGE_QUALITY.LOW}

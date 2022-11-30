@@ -35,23 +35,24 @@ const NavBar = () => {
   }
 
   if (!router.isReady) return null
+  console.log(router)
 
   return (
     <nav className="top-navbar-wrapper">
       <div className="navbar-container">
         <div className="image-logo">
-          <Image src="/images/logo.png" alt="companyLogo" loading="lazy" width={120} height={40} />
+          <Image src="/Dragon Fish.png" alt="companyLogo" loading="lazy" width={240} height={70} objectFit="contain" />
         </div>
 
         <div className="menus">
           <div className="menu-items">
             <Link href="/" passHref>
-              <div className={classNames('title', { isChosen: router.asPath === '/' })}>Home</div>
+              <div className={classNames('title', { isChosen: router.pathname === '/' })}>Home</div>
             </Link>
           </div>
           <div className="menu-items">
             <Link href="/products" passHref>
-              <div className={classNames('title', { isChosen: router.asPath === '/products' })}>Product</div>
+              <div className={classNames('title', { isChosen: router.pathname === '/products' })}>Product</div>
             </Link>
           </div>
           <div className="menu-items">
@@ -71,7 +72,7 @@ const NavBar = () => {
                     <div className="cart-card" key={cart.id}>
                       <div className="cart-img">
                         <Image
-                          src={cart.images.length !== 0 ? cart.images[0].url : '/images/no-image.png'}
+                          src={cart.images && cart.images.length !== 0 ? cart.images[0] : '/images/no-image.png'}
                           alt={cart.name}
                           width={IMAGE_QUALITY.MED}
                           height={IMAGE_QUALITY.MED}
@@ -110,7 +111,7 @@ const NavBar = () => {
               </div>
             </div>
           </div>
-          {UserSlice.id === '' ? (
+          {UserSlice.id === null ? (
             <Link href="/sign-in">
               <a className="user-href">
                 <div className="user">

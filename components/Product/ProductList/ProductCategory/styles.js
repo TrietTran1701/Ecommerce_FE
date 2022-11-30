@@ -36,6 +36,7 @@ export default css`
 
           .selection-rendered {
             width: 100%;
+            text-transform: capitalize;
           }
           .selection-content-clear {
             cursor: pointer;

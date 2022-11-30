@@ -4,12 +4,12 @@ import FilterPrice from './ProductCategory/FilterPrice'
 import Products from './Products'
 import styles from './styles'
 
-const ProductList = ({ productListData, categoryList }) => {
+const ProductList = ({ productListData, categoryList, status, totalStatus, totalProductStatus }) => {
   const [query, setQuery] = useState({
     page: 1,
-    limit: 9,
-    orderBy: '',
-    categories: '',
+    limit: 12,
+    sort: status.sort,
+    categoryName: status.categoryName,
   })
 
   return (
@@ -18,18 +18,29 @@ const ProductList = ({ productListData, categoryList }) => {
         <div className="elementor-row-left">
           <div className="elementor-column-wrap">
             <div className="elementor-widget-wrap">
-              <FilterPrice minPrice={productListData.minPrice} maxPrice={productListData.maxPrice} />
+              <FilterPrice
+                minPrice={totalProductStatus.minPrice}
+                maxPrice={totalProductStatus.maxPrice}
+                query={query}
+                currPrice={[status.minPrice, status.maxPrice]}
+              />
               <ProductCategory
                 categoryList={categoryList}
                 query={query}
                 setQuery={setQuery}
-                totalProduct={productListData.total}
+                totalProduct={totalProductStatus.count}
               />
             </div>
           </div>
         </div>
         <div className="elementor-row-right">
-          <Products productListData={productListData} query={query} setQuery={setQuery} />
+          <Products
+            productListData={productListData}
+            query={query}
+            setQuery={setQuery}
+            status={status}
+            totalStatus={totalStatus}
+          />
         </div>
       </div>
       <style jsx>{styles}</style>

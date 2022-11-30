@@ -48,6 +48,7 @@ export default css`
         list-style: none;
         margin: 0;
         padding: 10px 0;
+        text-transform: capitalize;
         .select-results-option {
           cursor: pointer;
           padding: 6px 0.75em;

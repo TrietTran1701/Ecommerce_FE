@@ -28,9 +28,9 @@ const Slider = () => {
       <div className="arrowContainer" style={{ left: 0 }} onClick={() => handleDirection('l')}>
         <Image src={back} alt="leftArrow" layout="fill" objectFit="contain" />
       </div>
-      <div className="containerSlider" style={{transform:`translateX(${-100*index}vw)`}}>
+      <div className="containerSlider" style={{ transform: `translateX($-100*index}vw)` }}>
         {images.map((img, i) => (
-          <div className="imageSlider" key={i}> 
+          <div className="imageSlider" key={i}>
             <Image src={img} alt="" layout="fill" objectFit="fill" />
           </div>
         ))}

@@ -13,8 +13,8 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Pet Store</title>
-        <meta name="description" content="Pet Store for Ecommerce" />
+        <title>Dragon Fish</title>
+        <meta name="description" content="Fish store for Ecommerce" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />

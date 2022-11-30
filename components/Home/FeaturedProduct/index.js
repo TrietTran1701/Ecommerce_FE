@@ -4,7 +4,7 @@ import FeaturedCard from '../FeaturedCard'
 const FeaturedProduct = ({ trendingProducts }) => (
   <div className="container">
     <h1 className="title">Trending Products</h1>
-    <p className="desc">Best products for your pets</p>
+    <p className="desc">Best products for your aquarium</p>
     <div className="featured-products">
       <FeaturedCard trendingProducts={trendingProducts} />
     </div>

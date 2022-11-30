@@ -284,7 +284,7 @@ export default css`
     border: 2px solid #446084;
     padding: 15px 30px 30px;
 
-    border-color: #ffa6a8;
+    border-color: #061341;
   }
   .checkout-sidebar {
     h3 {

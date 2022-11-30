@@ -2,7 +2,8 @@ import css from 'styled-jsx/css'
 export default css`
   .wrapper {
     width: 100%;
-    background: black;
+    background: #061341;
+    margin-top: 40px;
   }
 
   .container {
@@ -24,7 +25,7 @@ export default css`
     }
     .brand-container {
       min-width: 30%;
-      width: 500px;
+      max-width: 400px;
       .brand-address {
         display: flex;
         align-items: center;
@@ -51,7 +52,7 @@ export default css`
       }
     }
     .information-container {
-      margin-left: 120px;
+      margin-left: 30px;
       width: 100%;
       padding-top: 40px;
       display: flex;

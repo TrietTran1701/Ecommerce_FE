@@ -18,6 +18,7 @@ export default css`
       justify-content: center;
       align-items: center;
       padding-top: 40px;
+      margin-bottom: 100px;
 
       p {
         font-size: 32px;
@@ -30,15 +31,15 @@ export default css`
         font-weight: 700;
         padding: 15px 19px;
         color: white;
-        background: #dd583b;
+        background: #061341;
         border: 1px solid #fff;
         text-decoration: none;
         border-radius: 4px;
         transition: background 0.3s, border 0.3s, color 0.3s;
 
         &:hover {
-          color: #dd583b;
-          border-color: #dd583b;
+          color: #061341;
+          border-color: #061341;
           background: white;
         }
       }

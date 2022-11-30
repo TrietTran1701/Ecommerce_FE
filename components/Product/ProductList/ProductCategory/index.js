@@ -6,18 +6,17 @@ import styles from './styles'
 const ProductCategory = ({ categoryList, query, setQuery, totalProduct }) => {
   const [isSelect, setIsSelect] = useState(false)
   const router = useRouter()
-  const firstCapitalize = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1)
-  }
   const handleChangeCate = () => {
     router.replace({
       pathname: '/products',
       query: {
         ...query,
-        categories: '',
+        page: 1,
+        limit: 12,
+        categoryName: '',
       },
     })
-    setQuery({ ...query, categories: '' })
+    setQuery({ ...query, page: 1, limit: 12, categoryName: '' })
   }
 
   return (
@@ -26,10 +25,10 @@ const ProductCategory = ({ categoryList, query, setQuery, totalProduct }) => {
         <h5>Product Category</h5>
         <span className="selection-container">
           <span className="selection-content select-selection--single">
-            {query.categories ? (
+            {query.categoryName ? (
               <>
-                <span className="selection-rendered">{`${firstCapitalize(query.categories.category_name)} (${
-                  query.categories.totalProducts
+                <span className="selection-rendered">{`${query.categoryName} (${
+                  categoryList.find((e) => e.name == query.categoryName).quantity
                 })`}</span>
                 <span className="selection-content-clear" onClick={handleChangeCate}>
                   x

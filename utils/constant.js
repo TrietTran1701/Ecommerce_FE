@@ -1,4 +1,4 @@
-export const COOKIE_EXPIRE_TIME = 1 / 1440 // 1 minute
+export const COOKIE_EXPIRE_TIME = 60 / 1440 // 1 minute
 export const MIN_DESKTOP_WIDTH = 1200
 export const MIN_TABLET_WIDTH = 768
 export const MIN_MOBILE_WIDTH = 320
@@ -28,10 +28,10 @@ export const ORDER_TYPE = {
 export const ORDER_STATUS = {
   ALL: -1,
   PENDING: 0,
-  CONFIRMED: 1,
-  DELIVERING: 2,
-  FINISHED: 3,
-  CANCELLED: 4,
+  CONFIRMED: 2,
+  DELIVERING: 3,
+  FINISHED: 4,
+  CANCELLED: 5,
 }
 export const LIMIT_PRODUCT_ORDER_LIST = 2
 export const POPUP_STATE_CLOSE = -1

@@ -41,12 +41,14 @@ export default css`
         font-weight: 500;
 
         &:hover {
-          color: #ffa6a8;
+          color: #061341;
+          text-decoration: underline;
         }
       }
 
       .current {
-        color: #ffa6a8;
+        color: #061341;
+        text-decoration: underline;
       }
 
       .arrow {
@@ -60,7 +62,7 @@ export default css`
   .back-button {
     text-decoration: none;
     color: white;
-    background: #ffa6a8;
+    background: #061341;
     padding: 16px 20px;
     font-size: 20px;
     font-weight: 700;
@@ -68,8 +70,8 @@ export default css`
 
     &:hover {
       background: white;
-      color: #ffa6a8;
-      border-color: #ffa6a8;
+      color: #061341;
+      border-color: #061341;
     }
   }
 `

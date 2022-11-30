@@ -6,16 +6,17 @@ import { IMAGE_QUALITY } from 'utils/constant'
 const OrderDetail = ({ orderDetail }) => {
   let totalCost = 0
   const shippingTitle = {
-    ready_to_pick: 'Ready to Pick',
-    picking: 'Picking',
-    picked: 'Picked',
-    storing: 'Storing',
-    return: 'Return',
+    5: 'Cancelled',
+    0: 'Pending',
+    1: 'Pending',
+    2: 'Confirmed',
+    3: 'Delivering',
+    4: 'Complete',
   }
-  const paymentMethod = {
-    paypal: 'Paypal',
-    cod: 'Cash on Delivery',
-  }
+  // const paymentMethod = {
+  //   vnpay: 'VN Pay',
+  //   cod: 'Cash on Delivery',
+  // }
   return (
     <div className="wrapper">
       <div className="row">
@@ -32,13 +33,13 @@ const OrderDetail = ({ orderDetail }) => {
               </tr>
             </thead>
             <tbody>
-              {orderDetail.cart.map((product) => {
+              {orderDetail.products.map((product) => {
                 totalCost = Number((totalCost + product.price * product.quantity).toFixed(2))
                 return (
                   <tr key={product.id}>
                     <td style={{ minWidth: '60px', maxWidth: '90px', width: '90px' }} className="product-thumbnail">
                       <Image
-                        src={product.images.length !== 0 ? product.images[0].url : '/images/no-image.png'}
+                        src={product.images.length !== 0 ? product.images[0] : '/images/no-image.png'}
                         alt={product.name}
                         width={IMAGE_QUALITY.LOW}
                         height={IMAGE_QUALITY.LOW}
@@ -48,7 +49,7 @@ const OrderDetail = ({ orderDetail }) => {
                       {product.name}
                     </td>
                     <td className="product-price">
-                      <span>{product.price}$</span>
+                      <span>{product.price} $</span>
                     </td>
                     <td className="product-quantity">
                       <div>
@@ -56,7 +57,7 @@ const OrderDetail = ({ orderDetail }) => {
                       </div>
                     </td>
                     <td className="product-subtotal">
-                      <span>{(product.price * product.quantity).toFixed(2)}$</span>
+                      <span>{(product.price * product.quantity).toFixed(2)} $</span>
                     </td>
                   </tr>
                 )
@@ -76,25 +77,26 @@ const OrderDetail = ({ orderDetail }) => {
           <div className="title">Order infomation</div>
           <div className="inner-row">
             <p className="subtotal">Temporary price</p>
-            <p className="price">{totalCost}$</p>
+            <p className="price">{totalCost} $</p>
           </div>
           <div className="inner-row">
             <p className="shipping">Delivery</p>
             <div>
-              <p className="method">Cost: {orderDetail.shippingFee === 0 ? 'Free' : `${orderDetail.shippingFee}$`}</p>
-              <p className="destination">Status: {shippingTitle[orderDetail.shipping.status]}</p>
-              <p className="destination">{`To: ${orderDetail.bill.address}, ${orderDetail.bill.ward} ward, ${orderDetail.bill.district} district, ${orderDetail.bill.region} province/city`}</p>
+              <p className="method">Cost: {orderDetail.deliver.fee == 0 ? 'Free' : `${orderDetail.deliver.fee} $`}</p>
+              <p className="destination">Status: {shippingTitle[orderDetail.status]}</p>
+              <p className="destination">{`To: ${orderDetail.deliver.location}`}</p>
             </div>
           </div>
           <div className="inner-row">
             <p className="shipping">Payment method</p>
             <div>
-              <p className="method">{paymentMethod[orderDetail.bill.paymentMethod]}</p>
+              <Image src="/vnpay.svg" width={116} height={65} />
+              {/* <p className="method">{paymentMethod[orderDetail.bill.paymentMethod]}</p> */}
             </div>
           </div>
           <div className="inner-row">
             <p className="total">Total</p>
-            <p className="price">{orderDetail.totalPrice}$</p>
+            <p className="price">{orderDetail.totalCost} $</p>
           </div>
         </div>
       </div>
