@@ -32,8 +32,8 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
             <div
               className="payment-btn"
               onClick={async () => {
-                const resUrl = await createPayment({ orderId, totalCost }).then(({ data }) => {
-                  return data.url
+                const resUrl = await createPayment({ orderId, totalCost }).then(({ data: { url } }) => {
+                  return url
                 })
 
                 window.location.assign(resUrl)
@@ -46,7 +46,7 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
         )
       } else {
         const updateOrderStatus = async () => {
-          const data = await updateOrder({ userId, orderId, status: 1 }).then((res) => res.data.listRoom)
+          await updateOrder({ userId, orderId, status: 1 }).then((res) => res.data.listRoom)
         }
         updateOrderStatus()
 

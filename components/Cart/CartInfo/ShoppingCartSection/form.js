@@ -162,9 +162,14 @@ export const SignUpForm = ({ setSignIn, callback }) => {
         password: '',
         passwordConfirm: '',
       }}
-      onSubmit={async ({ passwordConfirm, ...values }, { setSubmitting, resetForm }) => {
+      onSubmit={async (values, { setSubmitting, resetForm }) => {
         try {
-          const res = await signUp(values).then(({ data }) => data)
+          const res = await signUp({
+            firstName: values.firstName,
+            lastName: values.lastName,
+            email: values.email,
+            password: values.password,
+          }).then(({ data }) => data)
           Cookies.set('user', JSON.stringify(res), { expires: 60 / 1440 })
           dispatch(setUser(res))
 

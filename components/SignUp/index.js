@@ -50,11 +50,16 @@ const SignUp = () => {
           password: '',
           passwordConfirm: '',
         }}
-        onSubmit={async ({ passwordConfirm, ...values }, { setSubmitting, resetForm }) => {
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
           try {
             setSubmitting(true)
             // Register user
-            const res = await signUp(values).then(({ data }) => data)
+            const res = await signUp({
+              firstName: values.firstName,
+              lastName: values.lastName,
+              email: values.email,
+              password: values.password,
+            }).then(({ data }) => data)
 
             // Set userSlice
             dispatch(setUser(res))
