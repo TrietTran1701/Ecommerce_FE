@@ -10,7 +10,6 @@ const Cart = ({ cartSlice }) => {
   const cartList = Object.values(cartSlice.cart)
   const customerBillingDetail = cartSlice.bill
   const totalCost = cartSlice.totalPrice
-  console.log(cartSlice)
 
   return (
     <div className="cart-wrapper">

@@ -47,7 +47,6 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
       } else {
         const updateOrderStatus = async () => {
           const data = await updateOrder({ userId, orderId, status: 1 }).then((res) => res.data.listRoom)
-          console.log(data)
         }
         updateOrderStatus()
 

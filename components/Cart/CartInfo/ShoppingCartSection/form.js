@@ -163,7 +163,6 @@ export const SignUpForm = ({ setSignIn, callback }) => {
         passwordConfirm: '',
       }}
       onSubmit={async ({ passwordConfirm, ...values }, { setSubmitting, resetForm }) => {
-        console.log(passwordConfirm)
         try {
           const res = await signUp(values).then(({ data }) => data)
           Cookies.set('user', JSON.stringify(res), { expires: 60 / 1440 })

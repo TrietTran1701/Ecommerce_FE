@@ -41,7 +41,6 @@ function SignInForm({ formStyle }) {
         password: '',
       }}
       onSubmit={async (values, { setSubmitting, resetForm }) => {
-        console.log(values)
         try {
           setSubmitting(true)
           // Validate user

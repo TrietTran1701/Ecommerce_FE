@@ -51,8 +51,6 @@ const SignUp = () => {
           passwordConfirm: '',
         }}
         onSubmit={async ({ passwordConfirm, ...values }, { setSubmitting, resetForm }) => {
-          console.log(values)
-          console.log(passwordConfirm)
           try {
             setSubmitting(true)
             // Register user

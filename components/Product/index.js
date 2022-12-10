@@ -10,7 +10,7 @@ const Product = ({ productType, productData, categoryList = [], status, totalSta
   return (
     <div className="product-wrapper">
       <NavBar />
-      <Title productType={productType} productName={productType === PRODUCT_TYPE.SINGLE ? productData._doc.name : ''} />
+      <Title productType={productType} productName={productType === PRODUCT_TYPE.SINGLE ? productData.name : ''} />
       {productType === PRODUCT_TYPE.SINGLE ? (
         <ProductSingle isModel={false} productSingleData={productData} />
       ) : (

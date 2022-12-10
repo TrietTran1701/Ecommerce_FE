@@ -17,7 +17,7 @@ const ProductSingle = ({ isModel, productSingleData }) => {
   const dispatch = useDispatch()
 
   const handleAddToCart = () => {
-    const data = productSingleData._doc
+    const data = productSingleData
     const productCart = {
       id: data._id,
       name: data.name,
@@ -48,11 +48,11 @@ const ProductSingle = ({ isModel, productSingleData }) => {
         <div className="product-single-detail">
           <div className="row product_detail">
             <div className="col-md-6">
-              <Slider DynamicWidth={dynamicWidth} sliderData={productSingleData._doc} />
+              <Slider DynamicWidth={dynamicWidth} sliderData={productSingleData} />
             </div>
             <div className="col-md-6 content-product">
               <h2>
-                {productSingleData._doc.name} | {formatVNprice(productSingleData._doc.price)} $
+                {productSingleData.name} | {formatVNprice(productSingleData.price)} $
               </h2>
               <div className="star-review">
                 {[0, 1, 2, 3, 4].map((ele) => {
@@ -64,20 +64,20 @@ const ProductSingle = ({ isModel, productSingleData }) => {
                 })}
                 <p>(1 customer reviews)</p>
               </div>
-              {productSingleData._doc.description ? (
+              {productSingleData.description ? (
                 <div
                   className="product-single-short-desc"
                   dangerouslySetInnerHTML={{
-                    __html: productSingleData._doc.description,
+                    __html: productSingleData.description,
                   }}
                 ></div>
               ) : null}
               <div className="infor-product">
                 <p>
-                  <span>Sku: </span> {productSingleData._doc.SKU}
+                  <span>Sku: </span> {productSingleData.SKU}
                 </p>
                 <p>
-                  <span>Categories: {productSingleData._doc.categoryName}</span>
+                  <span>Categories: {productSingleData.categoryName}</span>
                 </p>
                 <div>
                   <span>Share: </span>

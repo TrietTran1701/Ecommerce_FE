@@ -55,7 +55,6 @@ const OrderList = ({ orderList, status, setStatus }) => {
       </div> */}
       <div className="order-container">
         {orderList.map((order) => {
-          console.log(order.status)
           return (
             <div className="card" key={order.id}>
               <div className="top">

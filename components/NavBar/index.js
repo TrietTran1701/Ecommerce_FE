@@ -52,7 +52,7 @@ const NavBar = () => {
           </div>
           <div className="menu-items">
             <Link href="/products" passHref>
-              <div className={classNames('title', { isChosen: router.pathname === '/products' })}>Product</div>
+              <div className={classNames('title', { isChosen: router.pathname.includes('/products') })}>Product</div>
             </Link>
           </div>
           <div className="menu-items">

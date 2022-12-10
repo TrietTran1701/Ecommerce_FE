@@ -11,7 +11,6 @@ export default function OrderDetailPage({ orderId }) {
   useEffect(() => {
     const fetchData = async () => {
       const orderData = await getOrderDetail({ userId: userSlice.id, orderId }).then(({ data }) => data)
-      console.log(orderData)
 
       setOrderDetail(orderData)
     }

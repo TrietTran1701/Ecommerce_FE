@@ -4,7 +4,6 @@ import Link from 'next/link'
 
 const ProductInformation = ({ productSingleData }) => {
   const [showIdx, setShowIdx] = useState(0)
-  console.log(productSingleData)
   return (
     <div className="information">
       <ul className="nav nav-pills" role="tablist">
@@ -21,7 +20,7 @@ const ProductInformation = ({ productSingleData }) => {
       </ul>
       <div className="tab-content">
         {[
-          productSingleData._doc.description,
+          productSingleData.description,
           productSingleData.additionInfos,
           /* <ReviewSection />, */
         ].map((description, index) => {
