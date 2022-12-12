@@ -34,9 +34,7 @@ const Cart = ({ cartSlice }) => {
         <div
           style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: 20, marginBottom: '50px' }}
         >
-          <p style={{ fontSize: 22, color: '#777', textAlign: 'center', lineHeight: 1.5 }}>
-            There are no products in the cart
-          </p>
+          <p style={{ fontSize: 22, color: '#777', textAlign: 'center', lineHeight: 1.5 }}></p>
           <Link href="/products">
             <a className="back-button">Back to the store</a>
           </Link>

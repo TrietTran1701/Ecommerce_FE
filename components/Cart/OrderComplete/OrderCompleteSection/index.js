@@ -60,7 +60,6 @@ const OrderCompleteSection = ({ cartInfo, billInfo, shipInfo, totalCost, SOnum, 
     }
     return null
   }
-  console.log(totalCost, shipInfo)
 
   return (
     <div className="wrapper">

@@ -43,7 +43,10 @@ export const SignInForm = ({ setSignUp, callback }) => {
 
         try {
           // Validate user
-          const res = await signIn(values).then(({ data }) => data)
+          const res = await signIn(values).then(({ data }) => {
+            console.log(data)
+            return data
+          })
 
           // Set userSlice
           dispatch(setUser(res))
