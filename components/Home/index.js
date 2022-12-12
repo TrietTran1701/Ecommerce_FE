@@ -2,12 +2,9 @@ import styles from './styles'
 import NavBar from 'components/NavBar'
 import FeaturedProduct from './FeaturedProduct'
 import Footer from '../Utils/Footer'
-
-import dynamic from 'next/dynamic'
+import HeaderBanner from './HeaderBanner'
 
 const Home = ({ trendingProducts }) => {
-  const HeaderBanner = dynamic(() => import('./HeaderBanner'))
-
   return (
     <>
       <NavBar />
