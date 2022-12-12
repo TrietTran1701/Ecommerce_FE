@@ -48,15 +48,6 @@ const HeaderBanner = () => {
         {banners.map((banner) => {
           return (
             <div key={banner.id}>
-              {/* <div style={{ height: 300, overflowY: 'hidden' }} className="temp">
-                <Image
-                  src={banner.src}
-                  lay
-                  width="100%"
-                  height={853}
-                  style={{ transform: 'translateY(-25%)', objectFit: 'cover' }}
-                />
-              </div> */}
               <div
                 style={{
                   backgroundImage: `url(${banner.src})`,

@@ -35,7 +35,6 @@ const NavBar = () => {
   }
 
   if (!router.isReady) return null
-  console.log(router)
 
   return (
     <nav className="top-navbar-wrapper">

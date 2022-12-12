@@ -8,16 +8,17 @@ const HomePage = ({ trendingProducts, blogs }) => {
 export async function getStaticProps() {
   try {
     const trendingProducts = await getProduct({ page: 1, limit: 8, minPrice: null, maxPrice: null }).then(
-      ({ data }) => data.listRoom.data,
+      ({ data }) => {
+        console.log(data)
+      },
     )
-    // const blogs = await axios.get(`${process.env.HOST_API}/blog`).then((res) => res.data)
 
     return {
       props: {
-        trendingProducts,
+        trendingProducts: [],
         blogs: [],
       },
-      revalidate: 10,
+      revalidate: 1,
     }
   } catch (e) {
     console.log(e)
@@ -26,7 +27,7 @@ export async function getStaticProps() {
         trendingProducts: [],
         blogs: [],
       },
-      revalidate: 10,
+      revalidate: 1,
     }
   }
 }
