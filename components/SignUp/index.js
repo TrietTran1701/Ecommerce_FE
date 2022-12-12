@@ -1,6 +1,5 @@
 import { Formik } from 'formik'
 import Image from 'next/image'
-import React from 'react'
 import styles from './styles'
 import * as Yup from 'yup'
 import Link from 'next/link'

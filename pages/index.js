@@ -9,13 +9,13 @@ export async function getStaticProps() {
   try {
     const trendingProducts = await getProduct({ page: 1, limit: 8, minPrice: null, maxPrice: null }).then(
       ({ data }) => {
-        console.log(data)
+        return data.listRoom.data
       },
     )
 
     return {
       props: {
-        trendingProducts: [],
+        trendingProducts,
         blogs: [],
       },
       revalidate: 1,

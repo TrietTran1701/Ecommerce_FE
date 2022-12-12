@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import styles from './styles'
 import { useRouter } from 'next/router'
 import Link from 'next/link'

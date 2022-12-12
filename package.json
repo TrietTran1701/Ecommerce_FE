@@ -31,7 +31,7 @@
     "sharp": "^0.31.2",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
-    "styled-jsx": "^4.0.1",
+    "styled-jsx": "^5.1.0",
     "uuid": "^9.0.0",
     "yup": "^0.32.11"
   },
