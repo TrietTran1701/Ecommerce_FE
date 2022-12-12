@@ -24,11 +24,11 @@ const NavBar = () => {
   })
 
   const handleSignOut = () => {
-    // Remove cookie from application
-    Cookies.remove('user')
-
     // Remove user from redux
     dispatch(resetUser())
+
+    // Remove cookie from application
+    Cookies.remove('user')
 
     // Remove cart from redux
     dispatch(resetCheckout())

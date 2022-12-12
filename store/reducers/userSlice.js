@@ -24,11 +24,8 @@ const UserSlice = createSlice({
       state.authorization = authorization
     },
     resetUser(state, action) {
-      const {
-        user: { _id, firstName, lastName, username },
-        authorization,
-      } = action.payload
-      state.id = _id
+      const { id, firstName, lastName, username, authorization } = action.payload
+      state.id = id
       state.firstName = firstName
       state.lastName = lastName
       state.username = username

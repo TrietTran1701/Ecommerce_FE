@@ -4,7 +4,7 @@ const baseUrl = process.env.NEXT_PUBLIC_HOST_API
 
 export const signIn = async (values) => {
   return await axios
-    .post(`${baseUrl}/api/user/login`, values)
+    .post(`${baseUrl}/api/user/login`, { ...values, role: 'CUSTOMER' })
     .then((res) => {
       return res.data
     })
@@ -13,7 +13,7 @@ export const signIn = async (values) => {
 
 export const signUp = async (values) => {
   return await axios
-    .post(`${baseUrl}/api/user/createUser`, values)
+    .post(`${baseUrl}/api/user/createUser`, { ...values, role: 'CUSTOMER' })
     .then((res) => {
       return res.data
     })
