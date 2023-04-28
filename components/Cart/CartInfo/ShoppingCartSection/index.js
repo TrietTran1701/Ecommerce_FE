@@ -67,7 +67,7 @@ const ShoppingCartSection = ({ cartList, totalCost }) => {
                     </td>
                     <td style={{ minWidth: '60px', maxWidth: '90px', width: '90px' }} className="product-thumbnail">
                       <Image
-                        src={cart.images.length !== 0 ? cart.images[0] : '/images/no-image.png'}
+                        src={cart.images.length !== 0 ? cart.images[0].url : '/images/no-image.png'}
                         alt={cart.name}
                         width={IMAGE_QUALITY.MED}
                         height={IMAGE_QUALITY.MED}

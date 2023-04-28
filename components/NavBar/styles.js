@@ -20,9 +20,9 @@ export default css`
       padding: 20px 0;
 
       .image-logo {
-        height: 40px;
+        /* height: 40px;
         position: relative;
-        transform: translateY(-40%);
+        transform: translateY(-40%); */
       }
 
       .menus {

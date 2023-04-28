@@ -9,6 +9,8 @@ const Slider = ({ DynamicWidth, sliderData }) => {
     smallImage: { transform: 'translate3d(0px, 0px, 0px)' },
   })
 
+  console.log(sliderData)
+
   useEffect(() => {
     const sliders = document.querySelectorAll('.slides')
 
@@ -60,7 +62,7 @@ const Slider = ({ DynamicWidth, sliderData }) => {
                 return (
                   <li className="big-image" style={{ width: `${DynamicWidth}px` }} key={index}>
                     <Image
-                      src={image}
+                      src={image.url}
                       alt="Hình ảnh sản phẩm to"
                       width={IMAGE_QUALITY.HIGH}
                       height={IMAGE_QUALITY.HIGH}
@@ -92,7 +94,7 @@ const Slider = ({ DynamicWidth, sliderData }) => {
                 return (
                   <li className="small-image" key={index}>
                     <Image
-                      src={image}
+                      src={image.url}
                       alt="Hình ảnh sản phẩm nhỏ"
                       width={IMAGE_QUALITY.LOW}
                       height={IMAGE_QUALITY.LOW}

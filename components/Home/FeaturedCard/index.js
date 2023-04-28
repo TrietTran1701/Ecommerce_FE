@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 const FeaturedCard = ({ trendingProducts }) => {
+  console.log(trendingProducts)
   return (
     <div className="elementor-column">
       <div className="elementor-column-wrapper">
@@ -13,7 +14,7 @@ const FeaturedCard = ({ trendingProducts }) => {
                 <div className="product">
                   <div className="product-img">
                     <Image
-                      src={product.images.length ? product.images[0] : '/no-image.png'}
+                      src={product.images.length ? product.images[0].url : '/no-image.png'}
                       alt="product image"
                       width={900}
                       height={900}
